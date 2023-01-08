@@ -5,7 +5,7 @@ import domain.Persona;
 import java.sql.*;
 import java.util.*;
 
-public class PersonaDAO {
+public class PersonaDAO implements IAccesoDatos<Persona>{
     //Sentencias
     private static final String SQL_SELECT = "SELECT * FROM persona";
     private static final String SQL_INSERT = "INSERT INTO persona(nombre, apellido, email, telefono) VALUES(?, ?, ?, ?)";
@@ -13,6 +13,7 @@ public class PersonaDAO {
     private static final String SQL_UPDATE = "UPDATE persona SET nombre = ?, apellido = ?, email = ?, telefono = ? WHERE idPersona = ?";
     
     //Métodos
+    @Override
     public List<Persona> listar(){
         Connection conn = null;
         PreparedStatement stmt = null;
@@ -40,6 +41,7 @@ public class PersonaDAO {
         return personas;
     }
     
+    @Override
     public int insertar(Persona persona){
         Connection conn = null;
         PreparedStatement stmt = null;
@@ -64,6 +66,7 @@ public class PersonaDAO {
         return registros;
     }
     
+    @Override
     public int eliminar(Persona persona){
         Connection conn = null;
         PreparedStatement stmt = null;
@@ -84,6 +87,7 @@ public class PersonaDAO {
         return registro;
     }
     
+    @Override
     public int actualizar(Persona persona){
         Connection conn = null;
         PreparedStatement stmt = null;

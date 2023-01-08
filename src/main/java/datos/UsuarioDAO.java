@@ -5,7 +5,7 @@ import domain.Usuario;
 import java.sql.*;
 import java.util.*;
 
-public class UsuarioDAO {
+public class UsuarioDAO implements IAccesoDatos<Usuario>{
     //Sentencias
     private static final String SQL_SELECT = "SELECT * FROM usuario";
     private static final String SQL_INSERT = "INSERT INTO usuario(usuario, password) VALUES(?, ?)";
@@ -13,6 +13,7 @@ public class UsuarioDAO {
     private static final String SQL_UPDATE = "UPDATE usuario SET usuario = ?, password = ? WHERE idUsuario = ?";
     
     //Métodos
+    @Override
     public List<Usuario> listar(){
         Connection conn = null;
         PreparedStatement stmt = null;
@@ -40,16 +41,17 @@ public class UsuarioDAO {
         return usuarios;
     }
     
-    public int insertar(Usuario usuario){
+    @Override
+    public int insertar(Usuario obj) {
         Connection conn = null;
         PreparedStatement stmt = null;
         int registros = 0;
-        
+
         try {
             conn = Conexion.getConnection();
             stmt = conn.prepareStatement(SQL_INSERT);
-            stmt.setString(1, usuario.getUsuario());
-            stmt.setString(2, usuario.getPassword());
+            stmt.setString(1, obj.getUsuario());
+            stmt.setString(2, obj.getPassword());
             
             registros = stmt.executeUpdate(); //modifica el estado de la base de datos (insert, update, delete)
             
@@ -62,16 +64,17 @@ public class UsuarioDAO {
         
         return registros;
     }
-    
-    public int eliminar(Usuario usuario){
+
+    @Override
+    public int eliminar(Usuario obj) {
         Connection conn = null;
         PreparedStatement stmt = null;
         int registro = 0; //cantidad de registros modificados
-        
+
         try {
             conn = Conexion.getConnection();
             stmt = conn.prepareStatement(SQL_DELETE);
-            stmt.setInt(1, usuario.getIdUsuario());
+            stmt.setInt(1, obj.getIdUsuario());
             
             registro = stmt.executeUpdate(); //modifica el estado de la base de datos (insert, update, delete)
             
@@ -84,18 +87,19 @@ public class UsuarioDAO {
         
         return registro;
     }
-    
-    public int actualizar(Usuario usuario){
+
+    @Override
+    public int actualizar(Usuario obj) {
         Connection conn = null;
         PreparedStatement stmt = null;
         int registro = 0; //cantidad de registros modificados
-        
+
         try {
             conn = Conexion.getConnection();
             stmt = conn.prepareStatement(SQL_UPDATE);
-            stmt.setString(1, usuario.getUsuario());
-            stmt.setString(2, usuario.getPassword());
-            stmt.setInt(3, usuario.getIdUsuario());
+            stmt.setString(1, obj.getUsuario());
+            stmt.setString(2, obj.getPassword());
+            stmt.setInt(3, obj.getIdUsuario());
             
             registro = stmt.executeUpdate(); //modifica el estado de la base de datos (insert, update, delete)
             
