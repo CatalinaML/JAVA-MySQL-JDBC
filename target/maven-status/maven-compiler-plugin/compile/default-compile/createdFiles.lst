@@ -1,1 +1,8 @@
-ManejoJDBC.class
+domain\Persona.class
+datos\UsuarioDAO.class
+datos\IAccesoDatos.class
+domain\Usuario.class
+datos\Conexion.class
+test\Test.class
+datos\PersonaDAO.class
+.netbeans_automatic_build
